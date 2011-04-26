@@ -1,0 +1,50 @@
+<html>
+<head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://github.com/malsup/form/raw/master/jquery.form.js"></script>
+
+    <script>
+$(document).ready(function($){
+  
+    //Ajax submission to assetupload.php
+    //Uses jquery.form plugin for ajax file post : http://jquery.malsup.com/form/
+    
+    var attachment_options = {
+        beforeSubmit: function( data ) {
+            $('#img_attach DIV.photo_preview').html( '<p>Loading...</p>' ); 
+            $('#img_attach DIV.file_name').html( '' ); 
+        },
+        success: function( data ) { 
+            var parsed = $.parseJSON(data);
+            var imgreg = /(\.jpg|\.jpeg|\.gif|\.png)$/i;
+            if ( parsed['name'] && imgreg.test(parsed['name']) ) {
+                $('#img_attach DIV.file_name').html( parsed['name'] );
+                $('#img_attach DIV.photo_preview').html( '<img src="' + parsed['path'] + parsed['name'] + '" />' );
+            } 
+        },
+        url: 'assetupload.php'
+    };
+
+    $('#img_attach').ajaxForm( attachment_options );
+    $('#img_attach input[name="fileupload"]').change( function() {
+        $('#img_attach').submit();
+        return false;
+    });
+
+});
+    </script>
+
+</head>
+<body>
+    <form id="img_attach" method="POST" target="assetupload.php"  enctype="multipart/form-data">
+    <div class="uploadform">
+        Select and upload a photo (JPG, PNG, or GIF):<br />
+        <input type="file" name="fileupload">
+        <div class="photo_preview"></div>
+        <div class="file_name"></div>
+        <input type="hidden" name="resize_width" value="350" />
+        <!-- input type="hidden" name="resize_height" value="240" / -->
+    </div>
+    </form>
+</body>
+</html>
