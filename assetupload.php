@@ -5,6 +5,7 @@
 // - optional: customize handle_authorization() and store_meta() in includes/fileupload_page_logic.inc
 
 require_once 'includes/config.inc';
+require_once 'includes/common.inc';
 
 
 //This should set up the standard page variables and page logic
@@ -43,10 +44,10 @@ function PageMain()
             $newy = intval( postVar('resize_height') );
 
             if ( !isset( $newx ) || $newx == "" || intval( $newx ) <= 0 ) {
-                $newx = $newy * $ox / $oy;
+                $newx = intval( $newy * $ox / $oy );
             }
             if ( !isset( $newy ) || $newy == "" || intval( $newy ) <= 0 ) {
-                $newy = $newx * $oy / $ox;
+                $newy = intval( $newx * $oy / $ox );
             }
 
             $maxdimension = $config[$config['env']]['fileupload_max_img_dimension'];
