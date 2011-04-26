@@ -28,6 +28,7 @@ if (get_magic_quotes_gpc()) {
 $config['development']['fileupload_upload_directory'] = '/var/www/assets/uploads/'; //This needs to be server writable
 $config['development']['fileupload_upload_path'] = 'http://www.sitename.com/assets/uploads/';
 $config['development']['fileupload_valid_types'] = array("jpg", "jpeg", "gif", "png", "doc", "docx", "pdf", "ppt"); //These should be lower case
+$config['development']['fileupload_max_img_dimension'] = 1280;
 
 $config['env'] = 'development';
 
