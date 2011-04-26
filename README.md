@@ -6,7 +6,7 @@ PHP assetupload handles AJAX file uploads.
 Features
 ---------------------------------
 
-- designed to work in conjunction with the jquery.form plugin to handle AJAX file upload behaviours
+- designed to work in conjunction with the jquery.form plugin to handle AJAX file upload behaviors
 - returns simple JSON result data
 - can optionally resize or scale uploaded images.
 
@@ -36,4 +36,12 @@ assetupload expects the following POST parameters:
 
 If neither resize_width or resize_height are specified, the uploaded image will not be altered from its source. If only one is specified, the other dimension will be calculated to match the original's aspect ratio. If both are specified, the image will be resized without stretching. If the destination aspect ratio does not match the source, the image will be centered and cropped on the shorter dimention after scaling to the new size. All resized images are exported as JPG.
 
-See demo.html for an example.
+See demo.html for a working example.
+
+Output
+---------------
+
+Output is returned as a JSON object containing the file name, the file size, and the download path:
+
+    {"name":"FGuIZhMd71ZejgcEMEsV2Q2XqEIW8lCH.jpg", "size":"52277", "path":"http://foo.com/php.assetupload/assets/uploads/"}
+
