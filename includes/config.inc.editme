@@ -1,0 +1,34 @@
+<?php
+
+//TO USE
+// - configure settings below
+// - rename to config.inc
+
+
+ini_set('display_errors', '1');
+
+//Hack - disable magic quotes (if it's enabled)
+if (get_magic_quotes_gpc()) {
+    $process = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
+    while (list($key, $val) = each($process)) {
+        foreach ($val as $k => $v) {
+            unset($process[$key][$k]);
+            if (is_array($v)) {
+                $process[$key][stripslashes($k)] = $v;
+                $process[] = &$process[$key][stripslashes($k)];
+            } else {
+                $process[$key][stripslashes($k)] = stripslashes($v);
+            }
+        }
+    }
+    unset($process);
+}
+
+
+$config['development']['fileupload_upload_directory'] = '/var/www/assets/uploads/'; //This needs to be server writable
+$config['development']['fileupload_upload_path'] = 'http://www.sitename.com/assets/uploads/';
+$config['development']['fileupload_valid_types'] = array("jpg", "jpeg", "gif", "png", "doc", "docx", "pdf", "ppt"); //These should be lower case
+
+$config['env'] = 'development';
+
+
